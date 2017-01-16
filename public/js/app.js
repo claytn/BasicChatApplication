@@ -1,3 +1,4 @@
+//Handle Socket Listeners
 var socket = io();
 
 socket.on('connect', function(){
@@ -6,11 +7,17 @@ socket.on('connect', function(){
 
 socket.on('pizza', function(data){
 	console.log(data.text);
-	//socket.emit('pizza', {text: "You've got mail."});
 });
 
-function sendMessage(){
-	var message = document.getElementById('message').value;
-	document.getElementById('message').value = "";
-	socket.emit('pizza', {text:message});
-}
+
+//Handle Form Submissions
+var $form = jQuery('#message-form');
+$form.on('submit', function(e){
+	e.preventDefault();
+	var messageInput = $form.find('input[name=message]');
+	socket.emit('pizza', {
+		text: messageInput.val()
+	 });
+	messageInput.val("");
+});
+
