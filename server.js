@@ -11,11 +11,10 @@ app.use(express.static('./public'));
 io.on('connection', function(socket){
 	//when message received return message to everyone, but sender.
 	socket.on('pizza', function(data){
-		socket.broadcast.emit('pizza', data);	
+		//use broadcast.emit to send it to everyone, but you.
+		io.emit('pizza', data);	
 	});
 
-	//Initial Welcome message.
-	socket.emit('pizza', {text: 'Hello, welcome to the chat app.'});
 });
 
 http.listen(PORT, function(){

@@ -6,7 +6,7 @@ socket.on('connect', function(){
 });
 
 socket.on('pizza', function(data){
-	console.log(data.text);
+	$('#messages').append('<p>'+data.text+'</p>');
 });
 
 
