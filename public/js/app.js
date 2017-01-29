@@ -6,7 +6,7 @@ socket.on('connect', function(){
 });
 
 socket.on('pizza', function(data){
-	$('#messages').append('<p>'+data.text+'</p>');
+	$('#messages').append('<p>'+data.text+'</p>').append('<sup>Sent: '+data.time+'</sup>');
 });
 
 
@@ -15,9 +15,11 @@ var $form = jQuery('#message-form');
 $form.on('submit', function(e){
 	e.preventDefault();
 	var messageInput = $form.find('input[name=message]');
+	if(messageInput.val().length > 0){
 	socket.emit('pizza', {
 		text: messageInput.val()
 	 });
 	messageInput.val("");
+}
 });
 
